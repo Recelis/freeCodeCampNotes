@@ -3,19 +3,20 @@ var romanLetters = ["M","D","C","L","X","V","I"];
 var result = [];
 var ii = 0;
 function convertToRoman(num){
-    var remainder = 0;
-    while (remainder == 0){
-        remainder = num%divider[ii]; // loop through divider until gives remainder
-        // alert(ii);
-        ii++;
+    var remainder = -1;
+    while (remainder < 0){
+        remainder = num - divider[ii]; // loop through divider until gives remainder
+        console.log("");
+        console.log("num" + num);
+        console.log("divider" + divider[ii]);
         console.log("remainder " + remainder);
-        console.log(ii%Math.floor(ii/2));
-        if (ii%Math.floor(ii/2) == 1 && remainder == 4){ // is odd so it ends with 5 and remainder is 4
+        console.log("odd or even "+ ii%2);
+        if (ii%2 == 1 && remainder == 4){ // is odd so it ends with 5 and remainder is 4
             
             console.log("5! " + divider[ii]);
             remainder = 9;
-            // ii--;
         } 
+        ii++;
     }
     if (remainder > 0){
         // remove zeros
@@ -25,13 +26,13 @@ function convertToRoman(num){
         }
         // alert(removedZeros);
         // letters out to result
-        if (removedZeros == 9 || removedZeros == 4){
+        if (removedZeros == 9 || removedZeros == 3){
             
             if (removedZeros == 9){
-                console.log(romanLetters[ii - 1]+romanLetters[ii-3]);
-                result.push(romanLetters[ii - 1]+romanLetters[ii-3])
+                console.log(romanLetters[ii]+romanLetters[ii-2]);
+                result.push(romanLetters[ii]+romanLetters[ii-2])
             }
-            if (removedZeros == 4){
+            if (removedZeros == 3){
                 console.log(romanLetters[ii - 1]+romanLetters[ii-2]);
                 result.push(romanLetters[ii - 1]+romanLetters[ii-2]);
             }
@@ -57,5 +58,5 @@ function convertToRoman(num){
         }
     }
 }
-convertToRoman(9);
+convertToRoman(49);
 console.log(result.join(''));
