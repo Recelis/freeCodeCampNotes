@@ -27,9 +27,10 @@ function telephoneCheck(str) {
     var matchedArr = str.match(/[^0-9-() ]/gi);
     console.log(matchedArr);
     if (matchedArr != null) return false;
-    // contains 9 or 10 numbers
+    // remove digits
     var numberCheck = str.replace(/[^0-9]/gi,'');
     console.log(numberCheck); 
+    // contains 9 or 10 numbers
     if (numberCheck.length != 10 && numberCheck.length != 11) return false;
 
     // test 1, test the right sized clumps
@@ -56,6 +57,8 @@ function telephoneCheck(str) {
                 console.log("test2 nC11");
                 if (str.indexOf('(') == 1){
                     if (str.indexOf(')') != 5) return false;
+                    // check country code
+                    if (str[0] != '1') return false; 
                     var slicePos = 6;
                 } else if (str.indexOf('(') == 2){
                     if (str.indexOf(')') != 6) return false;
@@ -87,10 +90,25 @@ function telephoneCheck(str) {
     var clumps4 = str.split(" ");
     console.log("clumps4:" + clumps4);
     if (clumps4.length == 3){
-        console.log("test4 " + clumps4);
-        if (clumps4[0].length != 3) return false;
-        if (clumps4[1].length != 3) return false;
-        if (clumps4[2].length != 4) return false;
+        // hard code for mixed ' ' and '-' delimiters
+        if (numberCheck.length != 11){
+            console.log("test4 " + clumps4);
+            if (clumps4[0].length != 3) return false;
+            if (clumps4[1].length != 3) return false;
+            if (clumps4[2].length != 4) return false;
+        } else{
+            if (bracketsCheck == null){ // no brackets
+                console.log("test4 " + clumps4 + " with country code");
+                if (clumps4[0].length != 1 || clumps4[0] != '1') return false;
+                if (clumps4[1].length != 3) return false;
+                if (clumps4[2].length != 8) return false;
+            } else{
+                if (clumps4[0].length != 1 || clumps4[0] != '1') return false;
+                if (clumps4[1].length != 5) return false;
+                if (clumps4[2].length != 8) return false;
+            }
+        }
+
     }
     
     // if contains more than numbers

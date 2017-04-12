@@ -14,9 +14,6 @@ if not, then create adding function taking input and adding original variable
 */
 
 function addTogether() {
-    // convert arguments to array
-    var args = Array.from(arguments);
-    console.log(arguments);
     for (var ii =0; ii < arguments.length; ii++){
         if (!Number.isInteger(arguments[ii])) return undefined;
     }
