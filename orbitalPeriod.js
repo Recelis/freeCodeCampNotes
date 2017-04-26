@@ -20,7 +20,7 @@ function orbitalPeriod(arr) {
   for (var ii =0; ii < arr.length; ii++){
     var a = earthRadius + arr[ii].avgAlt;
     var period = 2*Math.PI*Math.sqrt(Math.pow(a,3)/GM); 
-    if (period - Math.floor(period) < 0.5) period = Math.floor(period);
+    if (period - Math.floor(period) < 0.5 ) period = Math.floor(period);
     else period = Math.ceil(period);
 
     delete arr[ii].avgAlt;
