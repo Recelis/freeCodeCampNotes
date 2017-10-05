@@ -1,4 +1,4 @@
-var testArray = [33,10,15,7, 82, 93,1,3];
+var testArray = [33,10,15,7, 82,82, 93,1,3];
 sorted = quickSort(testArray);
 console.log(sorted);
 
@@ -9,7 +9,7 @@ function quickSort(inputArray){
     }
     else {
         // pick pivot
-        let pivot = inputArray[0];
+        let pivot = [inputArray[0]];
         // loop through input Array
         let less = [];
         let more = [];
