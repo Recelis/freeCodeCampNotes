@@ -2,7 +2,6 @@ var testArray = [33,10,15,7, 82, 93,1,3];
 sorted = quickSort(testArray);
 console.log(sorted);
 
-
 function quickSort(inputArray){
     // base case
     if (inputArray.length < 2){
