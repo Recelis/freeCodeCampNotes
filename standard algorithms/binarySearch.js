@@ -1,11 +1,16 @@
 // take in list of numbers in array
-var array = Array.apply(null, Array(1000)).map(Number.prototype.valueOf,Math.floor(0));
-array = fillArrayWithRandomNumbers(array);
-array = quickSort(array);
+var array = Array.apply(null, Array(5)).map(Number.prototype.valueOf,Math.floor(0));
+var index = null;
+var lookup = 3;
+(function binarySearch(number){
+    array = fillArrayWithRandomNumbers(array);
+    array = quickSort(array);
+    index = splitArray(array, number);
+})(lookup);
 
 function fillArrayWithRandomNumbers(editArray){
     for (let ii =0; ii < editArray.length; ii++){
-        editArray[ii] = Math.floor((Math.random() * 1000) + 1);
+        editArray[ii] = Math.floor((Math.random() * 6) + 1);
     }
     return editArray;    
 }
@@ -32,10 +37,23 @@ function quickSort(inputArray){
     }
 }
 
-function splitArray(editArray){
-    
-    return editArray;
+function splitArray(editArray, number){
+    let guess = Math.floor(editArray.length/2);
+    console.log('guess: ' + guess);
+    console.log("edit guess: " + editArray[guess]);
+    console.log("editArray: " + editArray);
+    if (number < editArray[guess]) return splitArray(editArray.slice(0,guess), number);
+    else if (number > editArray[guess]) {
+        let value = splitArray(editArray.slice(guess+1), number);
+        if (value !== null) value += guess+1;
+            return value;
+        }
+         
+    else if (number === editArray[guess]) return guess;
+    else return null;
 }
 
 
 console.log(array);
+console.log(lookup);
+console.log(index);
