@@ -8,7 +8,10 @@ let firstIndex = 0;
 let lastIndex = 0;
 for (let ii =0; ii < data.length; ii++){
     // get index of data
-    linkedList[ii] = [data[ii], ii+1];
+    let nextIndex = 0;
+    if (ii !== data.length - 1) nextIndex = ii+1;
+    else nextIndex = ii;
+    linkedList[ii] = [data[ii], nextIndex];
     lastIndex = ii;
 }
 
