@@ -4,12 +4,14 @@ var data = ['orange', 'juice', 'apple', 'pear', 'beer', 'ham', 'burger'];
 
 let linkedList = {};
 // read in data
+let firstIndex = 0;
+let lastIndex = 0;
 for (let ii =0; ii < data.length; ii++){
     // get index of data
     linkedList[ii] = [data[ii], ii+1];
+    lastIndex = ii;
 }
-let firstIndex = 0;
-let lastIndex = 0;
+
 let index = reading('ham');
 linkedList = push(linkedList, 'pizza', 333);
 console.log(linkedList);
@@ -32,12 +34,13 @@ function reading(value){
 
 function push(linkedList, value, location){
     // start from last index
-    linkedList['0'][1] = location;
+    linkedList[lastIndex.toString()][1] = location;
     linkedList[location.toString()] = [value, location];
     lastIndex = location;
     return linkedList;
 }
 
 function pop(){
-
+    // remove last index
+    // linkedList[lastIndex.toString()][1]
 }
