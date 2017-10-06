@@ -8,10 +8,14 @@ for (let ii =0; ii < data.length; ii++){
     // get index of data
     linkedList[ii] = [data[ii], ii+1];
 }
+let firstIndex = 0;
+let lastIndex = 0;
 let index = reading('ham');
-linkedList = insertion(linkedList, 'pizza', 333);
+linkedList = push(linkedList, 'pizza', 333);
 console.log(linkedList);
 console.log(index);
+console.log('firstIndex: ' + firstIndex);
+console.log('lastIndex: ' + lastIndex);
 
 function reading(value){
     let count = 0;
@@ -26,14 +30,14 @@ function reading(value){
     } return null;
 }
 
-function insertion(linkedList, value, location){
-    // start from 0th index
-    let nextLink = linkedList['0'][1]; 
+function push(linkedList, value, location){
+    // start from last index
     linkedList['0'][1] = location;
-    linkedList[location.toString()] = [value, nextLink];
+    linkedList[location.toString()] = [value, location];
+    lastIndex = location;
     return linkedList;
 }
 
-function deletion(){
-    
+function pop(){
+
 }
