@@ -9,6 +9,7 @@ for (let ii =0; ii < data.length; ii++){
     linkedList[ii] = [data[ii], ii+1];
 }
 let index = reading('ham');
+linkedList = insertion(linkedList, 'pizza', 333);
 console.log(linkedList);
 console.log(index);
 
@@ -25,6 +26,14 @@ function reading(value){
     } return null;
 }
 
-function insertion(){
+function insertion(linkedList, value, location){
+    // start from 0th index
+    let nextLink = linkedList['0'][1]; 
+    linkedList['0'][1] = location;
+    linkedList[location.toString()] = [value, nextLink];
+    return linkedList;
+}
+
+function deletion(){
     
 }
