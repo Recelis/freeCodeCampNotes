@@ -14,6 +14,7 @@ for (let ii =0; ii < data.length; ii++){
 
 let index = reading('ham');
 linkedList = push(linkedList, 'pizza', 333);
+linkedList = pop(linkedList);
 console.log(linkedList);
 console.log(index);
 console.log('firstIndex: ' + firstIndex);
@@ -40,7 +41,11 @@ function push(linkedList, value, location){
     return linkedList;
 }
 
-function pop(){
-    // remove last index
-    // linkedList[lastIndex.toString()][1]
+function pop(linkedList){
+    // remove first index (remove last requires O(n) time)
+    // get first index pointer
+    let newFirst = linkedList[firstIndex.toString()][1];
+    delete linkedList[firstIndex.toString()];
+    firstIndex = newFirst;
+    return linkedList;
 }
