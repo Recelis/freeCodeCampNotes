@@ -7,14 +7,15 @@ var graph = {
     car: ['bar', 'cat'],
     mat: ['bat'],
     bar: ['bat'],
-    bat: []
+    bat: [],
+    boo:[]
 }
-console.log(breadthfirstSearch(graph, 'name'));
+console.log(breadthfirstSearch(graph, 'bat'));
 
 function breadthfirstSearch(graph, name) {
     var searched = [];
-    // queue of every node to check
-    var queue = Object.keys(graph);
+    // queue starting from first node
+    var queue = [Object.keys(graph)[0]];
     // loop until queue is empty
     while (queue.length > 0) {
         // remove first node off queue
