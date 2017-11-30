@@ -8,46 +8,64 @@ var graph = {
     bat: []
 }
 
-// create new graph to shift
-var unvisited = Object.keys(graph);
 
-let currentNode = Object.keys(graph)[0];
+let path = dijkstras(graph);
+console.log(path);
 
-// set tentativeDist to all initially Infinity
-let tentativeDist = {};
-for (let ii =0; ii < Object.keys(graph).length; ii ++){
-    if (ii === 0) tentativeDist[Object.keys(graph)[ii]] = 0;
-    else tentativeDist[Object.keys(graph)[ii]] = Infinity;
-}
-console.log(graph);
-console.log(tentativeDist);
 
-// loop through unvisited
-console.log(graph[currentNode].length + "length");
-console.log("**********************************************************************");
-while (unvisited.length !== 0){
-// loop through neighbours of currentNode
-    for (let ii =0; ii < graph[currentNode].length; ii ++){
-        // if smaller than unvisited change
-        // get name of node
-        let nodeName = Object.keys(graph[currentNode][ii])[0];
-        let checkDistance = tentativeDist[currentNode] + graph[currentNode][ii][nodeName];
-        console.log("currentNode: " +currentNode +  " nodeName: " +nodeName + " checkDistance: " + checkDistance);
-        if (checkDistance < tentativeDist[nodeName]) tentativeDist[nodeName] = checkDistance;
+function dijkstras(graph){
+    // create new graph to shift
+    var unvisited = Object.keys(graph);
+    let currentNode = Object.keys(graph)[0];
+    // set tentativeDist to all initially Infinity
+    let tentativeDist = {};
+    for (let ii =0; ii < Object.keys(graph).length; ii ++){
+        let fillObj = {
+            distance:Infinity,
+            prev: undefined
+        }
+        tentativeDist[Object.keys(graph)[ii]] = fillObj;
     }
-    // remove currentNode from unvisited
-    let location = getArrayLocation(unvisited, currentNode);
-    unvisited.splice(location,1)[0];
-    currentNode = getSmallestKeyInUnvisited(unvisited,tentativeDist);
+    tentativeDist[Object.keys(graph)[0]].distance = 0;
+    // loop through unvisited
+    while (unvisited.length !== 0){
+    // loop through neighbours of currentNode
+        for (let ii =0; ii < graph[currentNode].length; ii ++){
+            // if smaller than unvisited change
+            let nodeName = Object.keys(graph[currentNode][ii])[0];
+            let checkDistance = tentativeDist[currentNode].distance + graph[currentNode][ii][nodeName];
+            // console.log("currentNode: " +currentNode +  " nodeName: " +nodeName + " checkDistance: " + checkDistance);
+            if (checkDistance < tentativeDist[nodeName].distance) {
+                tentativeDist[nodeName].distance = checkDistance;
+                tentativeDist[nodeName].prev = currentNode;
+            }
+        }
+        // remove currentNode from unvisited
+        let location = getArrayLocation(unvisited, currentNode);
+        unvisited.splice(location,1)[0];
+        currentNode = getSmallestKeyInUnvisited(unvisited,tentativeDist);
+    }
+    // look through prev to get path
+    let keys = Object.keys(tentativeDist);
+    let path = [];
+    path.unshift(keys[keys.length-1]);
+    let ii = keys.length-1;
+    let node = tentativeDist[keys[ii]].prev;
+    while(ii > 0){
+        path.unshift(node);
+        ii--;
+        node = tentativeDist[keys[ii]].prev;
+    }
+    return path;
 }
-console.log(tentativeDist);
 
 function getSmallestKeyInUnvisited(unvisited,tentativeDist){
-    let smallestValue = tentativeDist[unvisited[0]]; 
+    if (unvisited.length === 0) return;
+    let smallestValue = tentativeDist[unvisited[0]].distance; 
     let smallestKey = unvisited[0];
     for (let jj =1; jj < unvisited.length; jj++){
-        if (tentativeDist[unvisited[jj]] < smallestValue){
-            smallestValue = tentativeDist[unvisited[jj]];
+        if (tentativeDist[unvisited[jj]].distance < smallestValue){
+            smallestValue = tentativeDist[unvisited[jj]].distance;
             smallestKey = unvisited[jj];
         }
     }
