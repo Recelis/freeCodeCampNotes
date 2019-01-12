@@ -1,5 +1,7 @@
-function rosetta (numDoors) {
-    
+function hundredDoors (numDoors) {
+        // forget about negative numbers
+        if (numDoors <= 0) return null;
+
         // initialise a door array
         let door = Array(numDoors).fill(false);
         console.log(door);
@@ -11,15 +13,20 @@ function rosetta (numDoors) {
             let count = jj-1;
             while ( count < numDoors){
                 // check every jj door start from first door
-                console.log('checking');
                 door[count] = !door[count];
                 count = count + jj; // if higher than 100th door, exit loop
             }
             jj++;
             // toggle values
         } 
-        return door;
+        // initialise output array
+        let outDoor = [];
+        // return door numbers if open (true)
+        for (let kk = 0; kk < door.length; kk ++){
+            if (door[kk] === true) outDoor.push(kk+1); // +1 because array does not start at 0 
+        }
+        return outDoor;
 }
 
-module.exports = rosetta;
+module.exports = hundredDoors;
 
