@@ -1,0 +1,14 @@
+{
+  "name": "rosetta",
+  "version": "1.0.0",
+  "description": "",
+  "main": "rosetta.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
+}
