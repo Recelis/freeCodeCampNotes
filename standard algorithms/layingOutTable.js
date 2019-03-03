@@ -29,7 +29,6 @@ TableDraw.prototype.columnWidth = function (column) {
         if (typeof curr[column] !== "string") sCurr[column] = curr[column].toString();
         return (sPrev[column].length > sCurr[column].length) ? sPrev : sCurr;
     });
-    console.log(longestRow);
     return longestRow[column].length;
 }
 
@@ -39,7 +38,12 @@ TableDraw.prototype.createHeaders = function (nameSpaces, heightSpaces, countryS
     console.log(this.padding(nameSpaces, "_") + " " + this.padding(heightSpaces, "_") + " " + this.padding(countrySpaces, "_"));
 }
 
-TableDraw.prototype.draw = function (table) {
+TableDraw.prototype.draw = function(table,nameSpaces, heightSpaces, countrySpaces){
+    // extract headers
+    for(let ii = 1; ii < table.length; ii++){
+        let row = table[ii];
+        console.log(row[0] + this.padding(nameSpaces-row[0].length, " ") + " " + row[1] + this.padding(heightSpaces-row[1].length, " ") +" "  + this.padding(countrySpaces-row[2].length, " ")+ row[2]);
+    };
 }
 
 // every object will have same copy
@@ -58,7 +62,7 @@ let columns = 3;
 for (let ii = 0; ii < columns; ii++) {
     maxWidth.push(newTable.columnWidth(ii));
 }
-console.log(maxWidth);
 newTable.createHeaders(...maxWidth);
-newTable.doSomething("word");
+newTable.draw(tableContents, ...maxWidth);
+
 
