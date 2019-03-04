@@ -45,6 +45,66 @@
     // many pre-built prperties are built-in. 
     // hasOwnProperty tells us whether object has property, not prototypes.
     // you can easily overwrite pre-built methods or values when you use prototypes.
-
     killerRabbit.dance();
+}
+
+// getters and setters
+// allows you to specify properties from outside the object
+{
+    let pile = {
+        elements: ["eggsshell", "orange peel", "worm"],
+        get height() {
+            return this.elements.length;
+        },
+        set height(value) {
+            console.log("Ignoring attempt to set height to", value);
+        }
+    };
+    function TextCell(text){
+        this.text = text;
+    }
+    let cell = new TextCell("fingers");
+    Object.defineProperty(TextCell.prototype, "heightProp", { // adding to existing object
+        get: function() {
+            return this.text.length;
+        }
+    });
+    console.log(pile.height); // looks like a property but actually is a method
+    console.log(cell.heightProp);
+}
+
+// inheritance
+{
+    function Parent(name){
+        this.name = name;
+    }
+
+    Parent.prototype.birth = function(){
+        console.log("birthing " + this.name);
+    }
+    Parent.prototype.end = function(){
+        console.log("ending " + this.name);
+    }
+
+    Parent.prototype.replace = function(){
+        console.log("replacement " + this.name);
+    }
+
+    function Child(name){ 
+        Parent.call(this, name); // can call Parent Object directly inside Child constructor
+    }
+    Child.prototype = Object.create(Parent.prototype);
+    Child.prototype.replace = function(){
+        console.log("I am the replacement");
+    }
+
+    let Tracey = new Parent("Tracey");
+    Tracey.birth();
+    Tracey.replace();
+
+    let HomieKid = new Child("HomieKid");
+    HomieKid.birth();
+    HomieKid.replace();
+
+    console.log(HomieKid instanceof Parent);
 }
